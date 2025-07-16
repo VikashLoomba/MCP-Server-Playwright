@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/automata-labs-team-mcp-server-playwright-badge.png)](https://mseep.ai/app/automata-labs-team-mcp-server-playwright)
+
 <h1 align="center">MCP Server Playwright</h1>
 <p align="center">
   <a href="https://www.automatalabs.io"><img alt="MCP Playwright" src="https://automatalabs.io/icon.svg" height="250"/></a>
