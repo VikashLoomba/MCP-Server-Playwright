@@ -78,6 +78,56 @@ The installation process will automatically add the following configuration to y
   }
 }
 ```
+
+### Advanced: Connect to an Existing Browser
+
+You can connect to an already-running browser instance via CDP (Chrome DevTools Protocol). This is useful for:
+- Using an existing browser session with your login credentials
+- Bypassing bot detection (Google security checks, etc.)
+- Debugging or automating a browser with a specific profile
+
+#### Setup:
+
+1. **Launch Chrome/Chromium with remote debugging enabled**:
+   ```bash
+   # macOS
+   /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
+     --remote-debugging-port=9222 \
+     --user-data-dir=/path/to/your/profile
+
+   # Linux
+   google-chrome --remote-debugging-port=9222 \
+     --user-data-dir=/path/to/your/profile
+
+   # Windows
+   "C:\Program Files\Google\Chrome\Application\chrome.exe" ^
+     --remote-debugging-port=9222 ^
+     --user-data-dir=C:\path\to\your\profile
+   ```
+
+2. **Configure the MCP server with CDP_ENDPOINT**:
+   ```json
+   {
+     "mcpServers": {
+       "playwright": {
+         "command": "npx",
+         "args": ["-y", "@automatalabs/mcp-server-playwright"],
+         "env": {
+           "CDP_ENDPOINT": "http://localhost:9222"
+         }
+       }
+     }
+   }
+   ```
+
+3. **Restart Claude Desktop** to apply the changes
+
+When `CDP_ENDPOINT` is set, the server will connect to your existing browser instead of launching a new one. This allows you to:
+- Maintain your logged-in sessions
+- Use your browser extensions
+- Avoid re-authentication prompts
+- Work with your existing browser state
+
 ## Using with Cursor
 
 You can also use MCP Server Playwright with [Cursor](https://www.cursor.so/), an AI-powered code editor. To enable browser automation in Cursor via MCP:

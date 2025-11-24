@@ -17,7 +17,7 @@ import {
   ImageContent,
   Tool,
 } from "@modelcontextprotocol/sdk/types.js";
-import playwright, { Browser, Page } from "playwright";
+import playwright, { Browser, Page, BrowserContext, chromium } from "playwright";
 
 enum ToolName {
   BrowserNavigate = "browser_navigate",
@@ -153,27 +153,44 @@ const TOOLS: Tool[] = [
 
 // Global state
 let browser: Browser | undefined;
+let context: BrowserContext | undefined;
 let page: Page | undefined;
 const consoleLogs: string[] = [];
 const screenshots = new Map<string, string>();
 
 async function ensureBrowser() {
   if (!browser) {
-    browser = await playwright.firefox.launch({ headless: false });
+    if (process.env.CDP_ENDPOINT) {
+      // CASE A: Connect to existing browser via CDP
+      console.error(`🔌 Connecting to existing browser at ${process.env.CDP_ENDPOINT}...`);
+      browser = await chromium.connectOverCDP(process.env.CDP_ENDPOINT);
+
+      // Use the existing default context (user's profile)
+      const contexts = browser.contexts();
+      context = contexts.length > 0 ? contexts[0] : await browser.newContext();
+    } else {
+      // CASE B: Default behavior (Launch new browser)
+      console.error("🚀 Launching new browser instance...");
+      browser = await playwright.firefox.launch({
+        headless: process.env.HEADLESS === 'true'
+      });
+      context = await browser.newContext();
+    }
   }
 
   if (!page) {
-    page = await browser.newPage();
+    page = await context!.newPage();
+
+    page.on("console", (msg) => {
+      const logEntry = `[${msg.type()}] ${msg.text()}`;
+      consoleLogs.push(logEntry);
+      server.notification({
+        method: "notifications/resources/updated",
+        params: { uri: "console://logs" },
+      });
+    });
   }
 
-  page.on("console", (msg) => {
-    const logEntry = `[${msg.type()}] ${msg.text()}`;
-    consoleLogs.push(logEntry);
-    server.notification({
-      method: "notifications/resources/updated",
-      params: { uri: "console://logs" },
-    });
-  });
   return page!;
 }
 
