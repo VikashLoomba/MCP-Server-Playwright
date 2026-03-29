@@ -26,6 +26,10 @@
   - [Resources](#resources)
 - [License](#license)
 
+## Hosted deployment
+
+A hosted deployment is available on [Fronteir AI](https://fronteir.ai/mcp/automatalabs-mcp-server-playwright).
+
 ## Features
 
 - 🌐 Full browser automation capabilities
