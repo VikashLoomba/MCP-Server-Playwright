@@ -11,7 +11,7 @@
   <a href="https://www.npmjs.com/package/@automatalabs/mcp-server-playwright"><img alt="NPM Version" src="https://img.shields.io/npm/v/@automatalabs/mcp-server-playwright.svg" height="20"/></a>
   <a href="https://npmcharts.com/compare/@automatalabs/mcp-server-playwright?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/@automatalabs/mcp-server-playwright.svg" height="20"/></a>
   <a href="https://github.com/Automata-Labs-team/MCP-Server-Playwright/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/Automata-Labs-team/MCP-Server-Playwright.svg" height="20"/></a>
-  <a href="https://smithery.ai/server/@automatalabs/mcp-server-playwright"><img alt="Smithery Installs" src="https://smithery.ai/badge/@automatalabs/mcp-server-playwright" height="20"/></a>
+  <a href="https://lightnow.ai/servers/io.github.vikashloomba/mcp-server-playwright"><img alt="Listed on LightNow" src="https://lightnow.ai/badge/io.github.vikashloomba/mcp-server-playwright?variant=listed" height="20"/></a>
 </p>
 
 <a href="https://glama.ai/mcp/servers/9q4zck8po5"><img width="380" height="200" src="https://glama.ai/mcp/servers/9q4zck8po5/badge" alt="MCP-Server-Playwright MCP server" /></a>
